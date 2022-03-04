@@ -1,24 +1,30 @@
-from django.db import models
+from djongo import models
+
+
+class ProductImage(models.Model):
+    id = models.IntegerField(primary_key=True)
+    url = models.CharField(max_length=400)
 
 
 class Product(models.Model):
+    _id = models.ObjectIdField()
     name = models.CharField(max_length=100)
+    brand = models.CharField(max_length=20)
+    currency = models.CharField(max_length=3)
     price = models.IntegerField()
-    stock = models.IntegerField(null=False, default=1)
-    sold_out = models.BooleanField(null=False, default=False)
-    details = models.TextField(null=False, default='No details for this product')
-    product_image = models.CharField(max_length=100, null=False, default='default.jpg')
-    category_id = models.ForeignKey('Category', on_delete=models.CASCADE, related_name='category')
+    in_stock = models.BooleanField()
+    description = models.TextField(null=False, default='No details for this product')
+    images = models.JSONField()
+    gender = models.CharField(max_length=15)
 
-    def __str__(self):
-        return self.name
-    
-    
-class Category(models.Model):
-    name = models.CharField(max_length=50)
+    class MongoMeta:
+        db_table = "products"
 
-    class Meta:
-        verbose_name_plural = "categories"
-
-    def __str__(self):
-        return self.name
+# class Category(models.Model):
+#     name = models.CharField(max_length=50)
+#
+#     class Meta:
+#         verbose_name_plural = "categories"
+#
+#     def __str__(self):
+#         return self.name

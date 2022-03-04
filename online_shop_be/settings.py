@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'products.apps.ProductsConfig',
+    'djongo',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -77,10 +79,15 @@ WSGI_APPLICATION = 'online_shop_be.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
+        'HOST': 'mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false',
         'NAME': 'store',
     }
 }
 
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 100
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
