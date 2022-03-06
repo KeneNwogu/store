@@ -1,8 +1,10 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import ModelSerializer, JSONField
 from .models import Product
 
 
 class ProductSerializer(ModelSerializer):
+    images = JSONField()
+
     class Meta:
         model = Product
         fields = ['_id', 'name', 'brand', 'description', 'price', 'currency',

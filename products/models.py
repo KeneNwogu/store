@@ -1,6 +1,5 @@
 from djongo import models
 
-
 class ProductImage(models.Model):
     id = models.IntegerField(primary_key=True)
     url = models.CharField(max_length=400)
