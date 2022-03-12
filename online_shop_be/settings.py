@@ -17,7 +17,6 @@ import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
@@ -46,7 +45,7 @@ INSTALLED_APPS = [
 ]
 
 if DEBUG:
-    INSTALLED_APPS += ('corsheaders', )
+    INSTALLED_APPS += ('corsheaders',)
 
 MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -81,15 +80,19 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'online_shop_be.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
-        'HOST': 'mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false',
-        'NAME': 'store',
+        "CLIENT": {
+            'name': 'store',
+            'host': os.environ.get('MONGO_URI'),
+            'username': 'Kcee',
+            "password": os.environ.get('MONGO_PASSWORD'),
+            "authMechanism": "SCRAM-SHA-1"
+        }
     }
 }
 
@@ -116,7 +119,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
@@ -129,7 +131,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
