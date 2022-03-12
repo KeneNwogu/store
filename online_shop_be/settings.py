@@ -88,9 +88,9 @@ DATABASES = {
         'ENGINE': 'djongo',
         "CLIENT": {
             'name': 'store',
-            'host': os.environ.get('MONGO_URI'),
+            'host': os.environ.get('MONGO_URI') or 'mongodb://localhost:27017/storw',
             'username': 'Kcee',
-            "password": os.environ.get('MONGO_PASSWORD'),
+            "password": os.environ.get('MONGO_URI'),
             "authMechanism": "SCRAM-SHA-1"
         }
     }
