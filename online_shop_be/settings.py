@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'products.apps.ProductsConfig',
     'djongo',
-    'rest_framework'
+    'rest_framework',
+    'django_filters'
 ]
 
 if DEBUG:

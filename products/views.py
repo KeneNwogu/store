@@ -1,12 +1,14 @@
 from bson import ObjectId
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import generics, filters
 from rest_framework import status
-from products.models import Product
-from products.serializers import ProductSerializer
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework import generics
 
+from products.models import Product
+from products.serializers import ProductSerializer, CategorySerializer
 # Create your views here.
+from utilities.database import categories
 from utilities.pagination import SmallResultsPagination
 
 
@@ -22,6 +24,23 @@ class ProductDetailsView(APIView):
 
 
 class ProductListView(generics.ListAPIView):
-    queryset = Product.objects.all()
     serializer_class = ProductSerializer
     pagination_class = SmallResultsPagination
+    filter_backends = [filters.SearchFilter, DjangoFilterBackend]
+    filterset_fields = ['brand', 'gender']
+    search_fields = ['description']
+
+    def get_queryset(self):
+        queryset = Product.objects.all()
+        category = self.request.query_params.get('category')
+        if category is not None:
+            queryset = queryset.filter(gender=category) or queryset.filter(brand=category)
+        return queryset
+
+
+class CategoriesListView(APIView):
+    def get(self, request):
+        category_list = list(categories.find())
+        # print(category_list)
+        serializer = CategorySerializer(category_list, many=True)
+        return Response(serializer.data)
