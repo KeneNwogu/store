@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-#l-*ga8-37s(!vo4+vp&(xc%8pqaigdo+l%(%-!1p@v62ii+o5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['thegorana.herokuapp.com']
 
 CORS_ORIGIN_ALLOW_ALL = DEBUG
 # Application definition
