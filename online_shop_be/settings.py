@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-#l-*ga8-37s(!vo4+vp&(xc%8pqaigdo+l%(%-!1p@v62ii+o5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['thegorana.herokuapp.com']
+ALLOWED_HOSTS = ['thegorana.herokuapp.com', '127.0.0.1']
 
 CORS_ORIGIN_ALLOW_ALL = DEBUG
 # Application definition
@@ -39,8 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'products.apps.ProductsConfig',
+    'users.apps.UsersConfig',
+    'orders.apps.OrdersConfig',
     'djongo',
     'rest_framework',
+    'rest_framework.authtoken',
     'django_filters'
 ]
 
@@ -83,12 +86,18 @@ WSGI_APPLICATION = 'online_shop_be.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend'
+]
+
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
+        'NAME': 'store',
+        'ENFORCE_SCHEMA': False,
         "CLIENT": {
             'name': 'store',
-            'host': os.environ.get('MONGO_URI') or 'mongodb://localhost:27017/storw',
+            'host': os.environ.get('MONGO_URI') or 'mongodb://localhost:27017/store',
             'username': 'Kcee',
             "password": os.environ.get('MONGO_PASSWORD'),
             "authMechanism": "SCRAM-SHA-1"
@@ -97,6 +106,9 @@ DATABASES = {
 }
 
 REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication'
+    ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 100
 }
@@ -121,6 +133,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
+
+AUTH_USER_MODEL = 'users.User'
 
 LANGUAGE_CODE = 'en-us'
 

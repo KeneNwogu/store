@@ -1,3 +1,4 @@
+from bson import ObjectId
 from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer, JSONField, ListSerializer, Serializer
 from .models import Product
@@ -5,6 +6,12 @@ from .models import Product
 
 class ProductSerializer(ModelSerializer):
     images = JSONField()
+    # brand = serializers.CharField(required=False)
+    # description = serializers.CharField(required=False)
+    # currency = serializers.CharField(required=False)
+    # gender = serializers.CharField(required=False)
+    # in_stock = serializers.BooleanField(required=False)
+    # name = serializers.CharField(required=False)
 
     class Meta:
         model = Product

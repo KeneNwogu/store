@@ -4,10 +4,11 @@ from rest_framework import generics, filters
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
+from rest_framework.permissions import IsAuthenticated
 from products.models import Product
 from products.serializers import ProductSerializer, CategorySerializer
 # Create your views here.
+from users.models import Wishlist
 from utilities.database import categories
 from utilities.pagination import SmallResultsPagination
 
@@ -44,3 +45,18 @@ class CategoriesListView(APIView):
         # print(category_list)
         serializer = CategorySerializer(category_list, many=True)
         return Response(serializer.data)
+
+
+class ProductWishlistView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, pk):
+        user = request.user
+        wishlist = Wishlist.objects.filter(user=user)
+        if not wishlist.exists():
+            Wishlist(user=user).save()
+        wishlist = wishlist.first()
+        product = Product.objects.get(_id=ObjectId(pk))
+        wishlist.products.add(product)
+        return Response({'message': 'succesfully added product to wishlist'})
+

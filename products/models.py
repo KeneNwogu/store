@@ -1,4 +1,6 @@
+from django import forms
 from djongo import models
+
 
 class ProductImage(models.Model):
     id = models.IntegerField(primary_key=True)
@@ -19,11 +21,9 @@ class Product(models.Model):
     class MongoMeta:
         db_table = "products"
 
-# class Category(models.Model):
-#     name = models.CharField(max_length=50)
-#
-#     class Meta:
-#         verbose_name_plural = "categories"
-#
-#     def __str__(self):
-#         return self.name
+
+class ProductForm(forms.ModelForm):
+    class Meta:
+        model = Product
+        fields = ['_id']
+
