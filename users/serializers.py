@@ -4,6 +4,8 @@ from .models import User, Wishlist
 
 
 class RegistrationSerializer(serializers.ModelSerializer):
+    first_name = serializers.CharField()
+    last_name = serializers.CharField()
     password2 = serializers.CharField()
 
     def create(self, validated_data):
@@ -27,7 +29,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
 
 class LoginSerializer(serializers.Serializer):
-    username = serializers.CharField()
+    email = serializers.CharField()
     password = serializers.CharField()
 
     def validate(self, attrs):
@@ -39,9 +41,9 @@ class LoginSerializer(serializers.Serializer):
         if user:
             authenticated_user = authenticate(username=email, password=password)
             if not authenticated_user:
-                raise serializers.ValidationError('Invalid Login Details')
+                raise serializers.ValidationError('Invalid login details provided')
             attrs['user'] = authenticated_user
             return attrs
         else:
-            raise serializers.ValidationError('User not registered')
+            raise serializers.ValidationError('Inavlid email or password')
 
