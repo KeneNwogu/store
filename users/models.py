@@ -8,6 +8,7 @@ class User(AbstractUser, models.Model):
     _id = models.ObjectIdField()
     phone = models.CharField(max_length=12)
     email = models.EmailField(unique=True)
+    is_staff = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []

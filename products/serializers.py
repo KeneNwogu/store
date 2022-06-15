@@ -1,3 +1,5 @@
+import random
+
 from bson import ObjectId
 from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer, JSONField, ListSerializer, Serializer
@@ -6,6 +8,7 @@ from .models import Product
 
 class ProductSerializer(ModelSerializer):
     images = JSONField()
+    rating = serializers.IntegerField(required=False, default=random.randint(3, 5))
     # brand = serializers.CharField(required=False)
     # description = serializers.CharField(required=False)
     # currency = serializers.CharField(required=False)
@@ -16,7 +19,7 @@ class ProductSerializer(ModelSerializer):
     class Meta:
         model = Product
         fields = ['_id', 'name', 'brand', 'description', 'price', 'currency',
-                  'in_stock', 'gender', 'images']
+                  'in_stock', 'gender', 'images', 'rating']
 
     def create(self, validated_data):
         product = Product.objects.create(**validated_data)

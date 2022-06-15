@@ -14,6 +14,8 @@ from utilities.pagination import SmallResultsPagination
 
 
 class ProductDetailsView(APIView):
+    authentication_classes = []
+
     def get(self, request, pk):
         try:
             product = Product.objects.get(_id=ObjectId(pk))

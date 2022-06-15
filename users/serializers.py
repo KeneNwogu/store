@@ -40,10 +40,10 @@ class LoginSerializer(serializers.Serializer):
 
         if user:
             authenticated_user = authenticate(username=email, password=password)
+            print(authenticated_user)
             if not authenticated_user:
                 raise serializers.ValidationError('Invalid login details provided')
             attrs['user'] = authenticated_user
             return attrs
         else:
-            raise serializers.ValidationError('Inavlid email or password')
-
+            raise serializers.ValidationError('Invalid email or password')
