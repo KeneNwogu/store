@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from products.models import Product
-from products.serializers import ProductSerializer, CategorySerializer
+from products.serializers import ProductSerializer, CategorySerializer, ProductDisplaySerializer
 # Create your views here.
 from users.models import Wishlist
 from utilities.database import categories
@@ -27,7 +27,7 @@ class ProductDetailsView(APIView):
 
 
 class ProductListView(generics.ListAPIView):
-    serializer_class = ProductSerializer
+    serializer_class = ProductDisplaySerializer
     pagination_class = SmallResultsPagination
     filter_backends = [filters.SearchFilter, DjangoFilterBackend]
     filterset_fields = ['brand', 'gender']

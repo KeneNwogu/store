@@ -17,8 +17,10 @@ from .serializers import RegistrationSerializer, LoginSerializer
 
 
 class RegisterUserView(APIView):
+    serializer_class = RegistrationSerializer
+
     def post(self, request):
-        user_serializer = RegistrationSerializer(data=request.data)
+        user_serializer = self.serializer_class(data=request.data)
         if user_serializer.is_valid(raise_exception=True):
             user_serializer.save()
         return Response({"message": "Successfully created user"})
@@ -27,9 +29,10 @@ class RegisterUserView(APIView):
 class UserTokenView(APIView):
     authentication_classes = []
     permission_classes = []
+    serializer_class = LoginSerializer
 
     def post(self, request, *args, **kwargs):
-        login_serializer = LoginSerializer(data=request.data)
+        login_serializer = self.serializer_class(data=request.data)
         if login_serializer.is_valid(raise_exception=True):
             user = login_serializer.validated_data['user']
             # token = Token.objects.get_or_create(user=user)

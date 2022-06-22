@@ -3,6 +3,12 @@ from rest_framework import serializers
 from .models import User, Wishlist
 
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['_id', 'first_name', 'last_name', 'email', 'phone']
+
+
 class RegistrationSerializer(serializers.ModelSerializer):
     first_name = serializers.CharField()
     last_name = serializers.CharField()

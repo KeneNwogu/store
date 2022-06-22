@@ -27,12 +27,12 @@ class JWTAuthentication(TokenAuthentication):
                 return (user, token)
 
 
-class IsOwner(permissions.BasePermission):
+class IsRetailer(permissions.BasePermission):
     def has_permission(self, request, view):
-        return bool(request.user and request.user.is_authenticated)
+        return bool(request.user and request.user.is_authenticated and request.user.is_staff)
 
-    def has_object_permission(self, request, view, obj):
-        if request.method in permissions.SAFE_METHODS:
-            return True
-
-        return obj._id == request.user._id
+    # def has_object_permission(self, request, view, obj):
+    #     if request.method in permissions.SAFE_METHODS:
+    #         return True
+    #
+    #     return obj._id == request.user._id
