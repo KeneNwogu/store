@@ -51,3 +51,4 @@ class OrderSerializer(serializers.Serializer):
                                     total_price=validated_data['total_price'],
                                     user=validated_data['user'], address=validated_data['address'],
                                     state=validated_data['state'])
+
