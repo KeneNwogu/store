@@ -14,6 +14,7 @@ class OrderItem(models.Model):
     _id = models.ObjectIdField()
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.IntegerField()
+    size = models.CharField(max_length=10)
     price = models.FloatField()
     total = models.FloatField()
 

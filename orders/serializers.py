@@ -9,9 +9,10 @@ from products.models import Product
 class OrderItemSerializer(serializers.Serializer):
     product_id = serializers.CharField()
     quantity = serializers.IntegerField()
+    size = serializers.CharField()
 
     class Meta:
-        fields = ['product_id', 'quantity']
+        fields = ['product_id', 'quantity', 'size']
 
     def validate(self, attrs):
         product_id = attrs.pop('product_id')

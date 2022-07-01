@@ -35,7 +35,8 @@ class CreateOrderView(APIView):
                 return Response({
                     'success': True,
                     'message': 'successfully created order',
-                    'transaction_reference': new_order.reference
+                    'transaction_reference': new_order.reference,
+                    'price': new_order.total_price
                 })
             return Response({
                 'success': False,
