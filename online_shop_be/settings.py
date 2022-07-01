@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'django_filters',
     'jwt',
-    'cloudinary'
+    'cloudinary',
+    'requests'
 ]
 
 if DEBUG:
@@ -101,6 +102,10 @@ cloudinary.config(
     api_secret=os.environ.get('CLOUDINARY_API_SECRET')
 )
 
+# paystack api keys
+PAYSTACK_SECRET_KEY = os.environ.get('PAYSTACK_SECRET_KEY')
+PAYSTACK_PUBLIC_KEY = os.environ.get('PAYSTACK_PUBLIC_KEY')
+
 ALLOWED_EXTENSIONS = {'.png', '.jpg', '.jpeg'}
 
 DATABASES = {
@@ -112,7 +117,7 @@ DATABASES = {
             'name': 'store',
             'host': os.environ.get('MONGO_URI') or 'mongodb://localhost:27017/store',
             'username': 'Kcee',
-            "password": os.environ.get('MONGO_PASSWORD'),
+            "password": os.environ.get('MONGO_PASSWORD', ''),
             "authMechanism": "SCRAM-SHA-1"
         }
     }

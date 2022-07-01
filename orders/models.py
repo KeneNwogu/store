@@ -5,6 +5,7 @@ from djongo import models
 # Create your models here.
 from products.models import Product, ProductForm
 from users.models import User
+from utilities.utils import create_transaction_reference
 
 
 class OrderItem(models.Model):
@@ -26,8 +27,12 @@ class Order(models.Model):
     products = models.ArrayReferenceField(OrderItem, on_delete=models.CASCADE)
     total_items = models.IntegerField()
     total_price = models.FloatField()
+    reference = models.CharField(default=create_transaction_reference, max_length=20)
     created_at = models.DateTimeField(default=datetime.utcnow)
+    paid = models.BooleanField(default=False)
     processed_at = models.DateTimeField(null=True)
-
+    address = models.CharField(max_length=250)
+    # state = models.CharField(choices=[('Lagos', 'Lagos'), ('Abuja', 'Abuja')], default='Lagos', max_length=15)
+    state = models.CharField(default='Lagos', max_length=15)
 
 

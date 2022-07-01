@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate
 from rest_framework import serializers
-from .models import User, Wishlist
+from .models import User, Wishlist, Transaction
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -53,3 +53,16 @@ class LoginSerializer(serializers.Serializer):
             return attrs
         else:
             raise serializers.ValidationError('Invalid email or password')
+
+
+class UserTransactionSerializer(serializers.Serializer):
+    user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
+    reference = serializers.CharField()
+    amount = serializers.FloatField()
+    description = serializers.CharField()
+    transaction_type = serializers.CharField()
+    created_at = serializers.DateTimeField()
+    paid_at = serializers.DateTimeField()
+
+    def create(self, validated_data):
+        Transaction.objects.create(**validated_data)
