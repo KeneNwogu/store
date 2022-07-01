@@ -35,5 +35,7 @@ class Order(models.Model):
     address = models.CharField(max_length=250)
     # state = models.CharField(choices=[('Lagos', 'Lagos'), ('Abuja', 'Abuja')], default='Lagos', max_length=15)
     state = models.CharField(default='Lagos', max_length=15)
+    
+    
 
 
