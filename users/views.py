@@ -74,7 +74,6 @@ class UserWishlistView(generics.ListAPIView):
 
 class UserTransactionWebHook(APIView):
     def post(self, request, *args, **kwargs):
-        print(request.data)
         data = request.data.get('data', {})
         transaction_reference = data.get('reference')
         amount = data.get('amount', 0)
@@ -84,7 +83,7 @@ class UserTransactionWebHook(APIView):
         created_at = data.get('created_at')
 
         if data.get('status') != 'success':
-            return Response({'success': False})
+            return Response({'success': False}, status=400)
 
         # TODO verify transaction reference
         paystack_verification_url = f'https://api.paystack.co/transaction/verify/{transaction_reference}'
@@ -94,11 +93,11 @@ class UserTransactionWebHook(APIView):
         response = requests.get(url=paystack_verification_url, headers=headers)
         response_data = response.json()
         verification_data = response_data.get('data')
-        verification_customer = response_data.get('customer', {})
+        verification_customer = verification_data.get('customer', {})
         verification_customer_email = verification_customer.get('email')
         if verification_data.get('status') != 'success' or amount < verification_data.get('amount') or \
                 verification_customer_email != customer_email:
-            return Response({'success': False})
+            return Response({'success': False}, status=400)
 
         order = Order.objects.filter(reference=transaction_reference)
         user = User.objects.filter(email=customer_email).first()
@@ -120,4 +119,4 @@ class UserTransactionWebHook(APIView):
                     order.save()
                     transaction.save()
                     return Response({'success': True})
-        return Response({'success': False})
+        return Response({'success': False}, status=400)
