@@ -78,7 +78,7 @@ class UserTransactionWebHook(APIView):
         data = request.data.get('data', {})
         transaction_reference = data.get('reference')
         amount = data.get('amount', 0)
-        customer = request.data.get('customer')
+        customer = data.get('customer')
         customer_email = customer.get('email')
         paid_at = data.get('paid_at')
         created_at = data.get('created_at')

@@ -21,7 +21,8 @@ class OrderTestCase(TestCase):
             "orders": [
                 {
                     "product_id": str(Product.objects.all().first()._id),
-                    "quantity": 1
+                    "quantity": 1,
+                    "size": "Medium"
                 }
             ],
             "state": "Abuja",
