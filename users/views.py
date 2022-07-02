@@ -74,6 +74,7 @@ class UserWishlistView(generics.ListAPIView):
 
 class UserTransactionWebHook(APIView):
     def post(self, request, *args, **kwargs):
+        print(request.data)
         data = request.data.get('data', {})
         transaction_reference = data.get('reference')
         amount = data.get('amount', 0)
