@@ -65,4 +65,4 @@ class UserTransactionSerializer(serializers.Serializer):
     paid_at = serializers.DateTimeField()
 
     def create(self, validated_data):
-        Transaction.objects.create(**validated_data)
+        return Transaction.objects.create(**validated_data)
