@@ -99,7 +99,7 @@ class UserTransactionWebHook(APIView):
                 verification_customer_email != customer_email:
             return Response({'success': False}, status=400)
 
-        order = Order.objects.filter(reference=transaction_reference)
+        order = Order.objects.filter(reference=transaction_reference).first()
         user = User.objects.filter(email=customer_email).first()
         if order and user:
             if amount >= order.total_price:
