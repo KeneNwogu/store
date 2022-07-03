@@ -48,7 +48,9 @@ class UserTokenView(APIView):
                 'message': 'Successfully created token for user',
                 'token': token,
                 'user_id': str(user._id),
-                'email': user.email
+                'email': user.email,
+                'first_name': user.first_name,
+                'last_name': user.last_name
             })
 
 
