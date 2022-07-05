@@ -38,14 +38,17 @@ class ProductListView(generics.ListAPIView):
     filterset_fields = ['brand', 'gender']
     search_fields = ['description']
 
-    @method_decorator(cache_page(60 * 60 * 8))
-    @method_decorator(vary_on_cookie)
     def get_queryset(self):
         queryset = Product.objects.all()
         category = self.request.query_params.get('category')
         if category is not None:
             queryset = queryset.filter(gender=category) or queryset.filter(brand=category)
         return queryset
+
+    @method_decorator(cache_page(60 * 60 * 8))
+    @method_decorator(vary_on_cookie)
+    def get(self, request, *args, **kwargs):
+        return super().get(self.request, *args, **kwargs)
 
 
 class CategoriesListView(APIView):
