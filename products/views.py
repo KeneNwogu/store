@@ -1,4 +1,7 @@
 from bson import ObjectId
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
+from django.views.decorators.vary import vary_on_cookie
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics, filters
 from rest_framework import status
@@ -16,6 +19,8 @@ from utilities.pagination import SmallResultsPagination
 class ProductDetailsView(APIView):
     authentication_classes = []
 
+    @method_decorator(cache_page(60 * 60 * 12))
+    @method_decorator(vary_on_cookie)
     def get(self, request, pk):
         try:
             product = Product.objects.get(_id=ObjectId(pk))
@@ -33,6 +38,8 @@ class ProductListView(generics.ListAPIView):
     filterset_fields = ['brand', 'gender']
     search_fields = ['description']
 
+    @method_decorator(cache_page(60 * 60 * 8))
+    @method_decorator(vary_on_cookie)
     def get_queryset(self):
         queryset = Product.objects.all()
         category = self.request.query_params.get('category')
@@ -42,9 +49,10 @@ class ProductListView(generics.ListAPIView):
 
 
 class CategoriesListView(APIView):
+    @method_decorator(cache_page(60 * 60 * 8))
+    @method_decorator(vary_on_cookie)
     def get(self, request):
         category_list = list(categories.find())
-        # print(category_list)
         serializer = CategorySerializer(category_list, many=True)
         return Response(serializer.data)
 
