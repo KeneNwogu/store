@@ -88,11 +88,12 @@ class RetailerAuthenticationView(APIView):
             token = jwt.encode(user_token_payload, settings.SECRET_KEY, settings.JWT_ENCRYPTION_METHOD)
             return Response({
                 'message': 'Successfully created token for user',
-                'token': token,
+                'app_token': token,
                 'user_id': str(user._id),
                 'email': user.email,
                 'first_name': user.first_name,
-                'last_name': user.last_name
+                'last_name': user.last_name,
+                'sendbox_access_token': access_token
             })
         return Response({"success": False, "message": "user could not be identified"}, status=401)
 
