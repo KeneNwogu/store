@@ -16,7 +16,7 @@ class RetailerRegistrationSerializer(RegistrationSerializer):
         # create retailer profile
         retailer = Retailer.objects.create(user=user)
         retailer.save()
-        return user
+        return retailer
 
 
 class RetailerLoginSerializer(LoginSerializer):

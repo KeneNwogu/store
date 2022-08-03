@@ -28,6 +28,14 @@ class CreateProductView(APIView):
 class RegisterRetailerView(RegisterUserView):
     serializer_class = RetailerRegistrationSerializer
 
+    # user state has to be returned for frontend to communicate with sendbox
+    def post(self, request):
+        user_serializer = self.serializer_class(data=request.data)
+        if user_serializer.is_valid(raise_exception=True):
+            retailer = user_serializer.save()
+            return Response({"message": "Successfully created user", "state": retailer.state_identifier})
+        return Response({"message": "Error in transaction", "success": False}, status=400)
+
 
 class LoginRetailerView(UserTokenView):
     serializer_class = RetailerLoginSerializer
