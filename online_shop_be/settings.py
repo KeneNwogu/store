@@ -106,6 +106,10 @@ cloudinary.config(
 PAYSTACK_SECRET_KEY = os.environ.get('PAYSTACK_SECRET_KEY')
 PAYSTACK_PUBLIC_KEY = os.environ.get('PAYSTACK_PUBLIC_KEY')
 
+# sendbox api keys
+SENDBOX_APP_ID = "62ea76ae9e3710001c0346cd"
+SENDBOX_API_SECRET = "ca92319bc1ebb1b75d8e072be95c167ee38abecc18e24d6d47db20db4fd2a11351f11e41d5caff21f2fa6bdef7a28400d43645eb4899fc1d2a1bd1225e418b7b"
+
 ALLOWED_EXTENSIONS = {'.png', '.jpg', '.jpeg'}
 
 DATABASES = {
