@@ -1,3 +1,6 @@
+import datetime
+
+import jwt
 import requests
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.response import Response
@@ -73,6 +76,24 @@ class RetailerAuthenticationView(APIView):
             retailer.refresh_token = refresh_token
             retailer.state_identifier = generate_unique_state_identifier()
             retailer.save()
+
+            # generate my app's own token
+            # TODO: DRY- abstract token generation to a separate function
+            user = retailer.user
+            user_token_payload = {
+                "user_id": str(user._id),
+                "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=720),
+                "iat": datetime.datetime.utcnow()
+            }
+            token = jwt.encode(user_token_payload, settings.SECRET_KEY, settings.JWT_ENCRYPTION_METHOD)
+            return Response({
+                'message': 'Successfully created token for user',
+                'token': token,
+                'user_id': str(user._id),
+                'email': user.email,
+                'first_name': user.first_name,
+                'last_name': user.last_name
+            })
         return Response({"success": False, "message": "user could not be identified"}, status=401)
 
 
