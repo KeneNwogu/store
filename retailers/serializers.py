@@ -1,5 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth import authenticate
+
+from retailers.models import Retailer
 from users.models import User
 from users.serializers import RegistrationSerializer, LoginSerializer
 
@@ -11,7 +13,9 @@ class RetailerRegistrationSerializer(RegistrationSerializer):
         user = User.objects.create(**validated_data)
         user.set_password(validated_data.get('password'))
         user.save()
-
+        # create retailer profile
+        retailer = Retailer.objects.create(user=user)
+        retailer.save()
         return user
 
 

@@ -25,11 +25,9 @@ class CreateProductView(APIView):
         return Response({'message': 'successfully added product'})
 
 
-class RegisterRetailerView(APIView):
+class RegisterRetailerView(RegisterUserView):
     serializer_class = RetailerRegistrationSerializer
-    # create retailer profile
-    def post(self):
-        pass
+
 
 class LoginRetailerView(UserTokenView):
     serializer_class = RetailerLoginSerializer
