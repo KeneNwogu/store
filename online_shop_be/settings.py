@@ -109,6 +109,9 @@ PAYSTACK_PUBLIC_KEY = os.environ.get('PAYSTACK_PUBLIC_KEY')
 # sendbox api keys
 SENDBOX_APP_ID = os.environ.get('SENDBOX_APP_ID')
 SENDBOX_API_SECRET = os.environ.get('SENDBOX_API_SECRET')
+SENDBOX_API_ACCESS_TOKEN = os.environ.get('SENDBOX_API_ACCESS_TOKEN')
+SENDBOX_API_REFRESH_TOKEN = os.environ.get('SENDBOX_API_REFRESH_TOKEN')
+
 SENDBOX_REDIRECT_URL = "http://localhost:3000/login"
 
 ALLOWED_EXTENSIONS = {'.png', '.jpg', '.jpeg'}
