@@ -12,8 +12,8 @@ You can create a fork or clone this repo directly to download the code to your l
 The following prerequisites are required to run the project locally:
 
  - Python
- - PostgreSQL
- -
+ - MongoDb
+
 	 #### Project dependencies: Before running the application, some project dependencies need to be installed and these are located in the requirements.txt file. To install each requirement, run:
 
 	`pip install -r requirements.txt`
@@ -36,3 +36,9 @@ These variables are necessary to setup cloudinary both locally and in production
  2. PAYSTACK_PUBLIC_KEY
 
 For more information about these variables, refer to the paystack documentation [here](https://paystack.com/docs/)
+
+##### DATABASE ENVIRONMENT VARIABLES
+These variables are required to connect the API to your local or production database. MongoDb or a remote Mongo Database cluster must be available to move forward with the project installation.
+
+ 1. MONGO_URI: This represents the database uri the backend uses to connect to the database
+ 2. MONGO_PASSWORD: This is the password needed to access the remote database, set as an empty string if no password is required (localhost database instance)
