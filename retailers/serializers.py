@@ -4,12 +4,13 @@ from django.contrib.auth import authenticate
 from retailers.models import Retailer
 from users.models import User
 from users.serializers import RegistrationSerializer, LoginSerializer
+from utilities import states
 
 
 class RetailerRegistrationSerializer(RegistrationSerializer):
     street = serializers.CharField(allow_null=False, allow_blank=False)
     city = serializers.CharField(allow_null=False, allow_blank=False)
-    state = serializers.CharField(allow_null=False, allow_blank=False)
+    state = serializers.ChoiceField(choices=states, allow_blank=False, allow_null=False)
 
     def create(self, validated_data):
         validated_data.pop('password2')
