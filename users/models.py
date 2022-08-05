@@ -10,6 +10,12 @@ class User(AbstractUser, models.Model):
     email = models.EmailField(unique=True)
     is_staff = models.BooleanField(default=False)
 
+    # extra models for sendbox location
+    street = models.CharField(max_length=200, null=True)
+    city = models.CharField(max_length=200, null=True)
+    country = models.CharField(max_length=200, default="NIGERIA")
+    state = models.CharField(max_length=200, null=True)
+
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
     # objects = Manager()
