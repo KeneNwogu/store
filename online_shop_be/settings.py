@@ -50,8 +50,7 @@ INSTALLED_APPS = [
     'django_filters',
     'jwt',
     'cloudinary',
-    'requests',
-    'django_json_widget'
+    'requests'
 ]
 
 if DEBUG:

@@ -4,9 +4,6 @@ from django.contrib import admin
 from django.core.exceptions import ValidationError
 from django import forms
 from django.forms import ModelForm, FileField, Field
-# from djongo.models.fields import JSONField
-from django_json_widget.widgets import JSONEditorWidget
-from djongo.models import JSONField
 
 from .models import Product
 
