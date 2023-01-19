@@ -17,12 +17,11 @@ class Product(models.Model):
     price = models.IntegerField()
     in_stock = models.BooleanField(default=True)
     description = models.TextField(null=False, default='No details for this product')
-    images = models.JSONField(default=[])
+    images = models.JSONField(default=[], null=True, blank=True)
     gender = models.CharField(max_length=15, default='Unisex')
     rating = models.IntegerField(null=True)
-    retailer = models.ForeignKey('users.User', on_delete=models.CASCADE, null=True)
+    retailer = models.ForeignKey('users.User', on_delete=models.CASCADE, null=True, blank=True)
     quantity = models.IntegerField(default=10)
-
     class MongoMeta:
         db_table = "products"
 

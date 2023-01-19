@@ -28,7 +28,7 @@ JWT_ENCRYPTION_METHOD = "HS256"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['thegorana.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = ['thegorana.herokuapp.com', '127.0.0.1', 'gorana.up.railway.app']
 
 CORS_ORIGIN_ALLOW_ALL = DEBUG
 # Application definition
@@ -43,13 +43,15 @@ INSTALLED_APPS = [
     'products.apps.ProductsConfig',
     'users.apps.UsersConfig',
     'orders.apps.OrdersConfig',
+    'retailers.apps.RetailersConfig',
     'djongo',
     'rest_framework',
     'rest_framework.authtoken',
     'django_filters',
     'jwt',
     'cloudinary',
-    'requests'
+    'requests',
+    'django_json_widget'
 ]
 
 if DEBUG:
@@ -130,6 +132,13 @@ DATABASES = {
         }
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'djongo',
+#         'NAME': 'store'
+#     }
+# }
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [

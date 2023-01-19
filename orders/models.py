@@ -5,6 +5,7 @@ from djongo import models
 # Create your models here.
 from products.models import Product, ProductForm
 from users.models import User
+from utilities import states
 from utilities.utils import create_transaction_reference
 
 
@@ -33,8 +34,8 @@ class Order(models.Model):
     paid = models.BooleanField(default=False)
     processed_at = models.DateTimeField(null=True)
     address = models.CharField(max_length=250)
-    # state = models.CharField(choices=[('Lagos', 'Lagos'), ('Abuja', 'Abuja')], default='Lagos', max_length=15)
-    state = models.CharField(default='Lagos', max_length=15)
+    state = models.CharField(choices=states, default='Lagos', max_length=15)
+    # state = models.CharField(default='Lagos', max_length=15)
     
     
 

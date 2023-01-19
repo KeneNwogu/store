@@ -42,3 +42,5 @@ These variables are required to connect the API to your local or production data
 
  1. MONGO_URI: This represents the database uri the backend uses to connect to the database
  2. MONGO_PASSWORD: This is the password needed to access the remote database, set as an empty string if no password is required (localhost database instance)
+
+**side note:** changing the username of the database may be required, refer to the DATABASES variable in the settings.py file and change the username field.
